@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbAgrobestGrupReceteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BilesenList">
+          <Key>
+            <PropertyRef Name="BilesenId" />
+          </Key>
+          <Property Name="BilesenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunId" Type="smallint" Nullable="false" />
+          <Property Name="BilesenAdi" Type="varchar(max)" />
+          <Property Name="BilesenOrani" Type="decimal" Precision="5" Scale="3" />
+        </EntityType>
+        <EntityType Name="tblSarjNo">
+          <Key>
+            <PropertyRef Name="SarjId" />
+          </Key>
+          <Property Name="SarjId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunId" Type="smallint" Nullable="false" />
+          <Property Name="SarjNo" Type="varchar" MaxLength="20" />
+          <Property Name="UrtTarihi" Type="datetime" />
+          <Property Name="MiadiOmru" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="UrunList">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAdi" Type="varchar" MaxLength="50" />
+          <Property Name="RuhsatSahibi" Type="varchar" MaxLength="50" />
+          <Property Name="UrunBoyutu" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_BilesenList_UrunList">
+          <End Role="UrunList" Type="Self.UrunList" Multiplicity="1" />
+          <End Role="BilesenList" Type="Self.BilesenList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UrunList">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="BilesenList">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSarjNo_UrunList">
+          <End Role="UrunList" Type="Self.UrunList" Multiplicity="1" />
+          <End Role="tblSarjNo" Type="Self.tblSarjNo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UrunList">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="tblSarjNo">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbAgrobestGrupReceteModelStoreContainer">
+          <EntitySet Name="BilesenList" EntityType="Self.BilesenList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSarjNo" EntityType="Self.tblSarjNo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrunList" EntityType="Self.UrunList" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BilesenList_UrunList" Association="Self.FK_BilesenList_UrunList">
+            <End Role="UrunList" EntitySet="UrunList" />
+            <End Role="BilesenList" EntitySet="BilesenList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSarjNo_UrunList" Association="Self.FK_tblSarjNo_UrunList">
+            <End Role="UrunList" EntitySet="UrunList" />
+            <End Role="tblSarjNo" EntitySet="tblSarjNo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbAgrobestGrupReceteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DbAgrobestGrupReceteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BilesenList" EntityType="DbAgrobestGrupReceteModel.BilesenList" />
+          <EntitySet Name="tblSarjNo" EntityType="DbAgrobestGrupReceteModel.tblSarjNo" />
+          <EntitySet Name="UrunList" EntityType="DbAgrobestGrupReceteModel.UrunList" />
+          <AssociationSet Name="FK_BilesenList_UrunList" Association="DbAgrobestGrupReceteModel.FK_BilesenList_UrunList">
+            <End Role="UrunList" EntitySet="UrunList" />
+            <End Role="BilesenList" EntitySet="BilesenList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSarjNo_UrunList" Association="DbAgrobestGrupReceteModel.FK_tblSarjNo_UrunList">
+            <End Role="UrunList" EntitySet="UrunList" />
+            <End Role="tblSarjNo" EntitySet="tblSarjNo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BilesenList">
+          <Key>
+            <PropertyRef Name="BilesenId" />
+          </Key>
+          <Property Name="BilesenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunId" Type="Int16" Nullable="false" />
+          <Property Name="BilesenAdi" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BilesenOrani" Type="Decimal" Precision="5" Scale="3" />
+          <NavigationProperty Name="UrunList" Relationship="DbAgrobestGrupReceteModel.FK_BilesenList_UrunList" FromRole="BilesenList" ToRole="UrunList" />
+        </EntityType>
+        <EntityType Name="tblSarjNo">
+          <Key>
+            <PropertyRef Name="SarjId" />
+          </Key>
+          <Property Name="SarjId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunId" Type="Int16" Nullable="false" />
+          <Property Name="SarjNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UrtTarihi" Type="DateTime" Precision="3" />
+          <Property Name="MiadiOmru" Type="Byte" />
+          <NavigationProperty Name="UrunList" Relationship="DbAgrobestGrupReceteModel.FK_tblSarjNo_UrunList" FromRole="tblSarjNo" ToRole="UrunList" />
+        </EntityType>
+        <EntityType Name="UrunList">
+          <Key>
+            <PropertyRef Name="UrunId" />
+          </Key>
+          <Property Name="UrunId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RuhsatSahibi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UrunBoyutu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BilesenList" Relationship="DbAgrobestGrupReceteModel.FK_BilesenList_UrunList" FromRole="UrunList" ToRole="BilesenList" />
+          <NavigationProperty Name="tblSarjNo" Relationship="DbAgrobestGrupReceteModel.FK_tblSarjNo_UrunList" FromRole="UrunList" ToRole="tblSarjNo" />
+        </EntityType>
+        <Association Name="FK_BilesenList_UrunList">
+          <End Type="DbAgrobestGrupReceteModel.UrunList" Role="UrunList" Multiplicity="1" />
+          <End Type="DbAgrobestGrupReceteModel.BilesenList" Role="BilesenList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UrunList">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="BilesenList">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSarjNo_UrunList">
+          <End Type="DbAgrobestGrupReceteModel.UrunList" Role="UrunList" Multiplicity="1" />
+          <End Type="DbAgrobestGrupReceteModel.tblSarjNo" Role="tblSarjNo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UrunList">
+              <PropertyRef Name="UrunId" />
+            </Principal>
+            <Dependent Role="tblSarjNo">
+              <PropertyRef Name="UrunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbAgrobestGrupReceteModelStoreContainer" CdmEntityContainer="DbAgrobestGrupReceteEntities">
+          <EntitySetMapping Name="BilesenList">
+            <EntityTypeMapping TypeName="DbAgrobestGrupReceteModel.BilesenList">
+              <MappingFragment StoreEntitySet="BilesenList">
+                <ScalarProperty Name="BilesenOrani" ColumnName="BilesenOrani" />
+                <ScalarProperty Name="BilesenAdi" ColumnName="BilesenAdi" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="BilesenId" ColumnName="BilesenId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSarjNo">
+            <EntityTypeMapping TypeName="DbAgrobestGrupReceteModel.tblSarjNo">
+              <MappingFragment StoreEntitySet="tblSarjNo">
+                <ScalarProperty Name="MiadiOmru" ColumnName="MiadiOmru" />
+                <ScalarProperty Name="UrtTarihi" ColumnName="UrtTarihi" />
+                <ScalarProperty Name="SarjNo" ColumnName="SarjNo" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="SarjId" ColumnName="SarjId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrunList">
+            <EntityTypeMapping TypeName="DbAgrobestGrupReceteModel.UrunList">
+              <MappingFragment StoreEntitySet="UrunList">
+                <ScalarProperty Name="UrunBoyutu" ColumnName="UrunBoyutu" />
+                <ScalarProperty Name="RuhsatSahibi" ColumnName="RuhsatSahibi" />
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
